@@ -23,10 +23,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 import model.Figura;
 import model.PathException;
 import model.Scores;
 import model.Usuario;
+import thread.ChoqueDevueta;
+import thread.CircleMove;
+import thread.ShowFiguresThread;
 
 
 /**
@@ -50,7 +54,13 @@ public class VentanaController implements Initializable {
    //_____________________________//
     
     @FXML
-    private Label lastfile;
+    private Label lbRebotes;
+    
+    @FXML
+    private Button inicio;
+    
+    @FXML
+    private Label lbMensajes;
     
     @FXML
     private Button files;
@@ -126,6 +136,36 @@ public class VentanaController implements Initializable {
         }
     }
     
+    @FXML
+    void GuardarJuego(ActionEvent event) {
+            String nombre = JOptionPane.showInputDialog("Ingrese su nombre: ");
+            int score = Integer.parseInt(lbRebotes.getText());
+            u = new Usuario(score, nombre);
+            s.addPlayer(u);
+    }
+    
+    @FXML
+    void StartGame(ActionEvent event) {
+            if (cargado) {
+                    for (int i = 0; i < figuras.size(); i++) {
+                            paneJuego.getChildren().add(figuras.get(i).getEl());
+                    }
+                    parado = false;
+                    ShowFiguresThread threadOpen = new ShowFiguresThread(this);
+                    CircleMove movePac = new CircleMove(this);
+                    ChoqueDevueta threadColision = new ChoqueDevueta(this);
+                    threadOpen.setDaemon(true);
+                    movePac.setDaemon(true);
+                    threadColision.setDaemon(true);
+                    threadOpen.start();
+                    movePac.start();
+                    threadColision.start();
+            } else {
+                    lbMensajes.setText("Se debe cargar una partida antes de jugar");
+                    
+            }
+    }
+    
     //PRUEBA DE FILECHOOSER
     @FXML
     private void seleccionarArchivo() throws IOException, PathException{
@@ -136,7 +176,6 @@ public class VentanaController implements Initializable {
         File f = fc.showOpenDialog(null);
         
         if (f != null) {
-            lastfile = new Label("Acrchivo Seleccionado");
             System.out.println("Acrchivo Seleccionado: " + f.getAbsolutePath());
 //            lastfile.setText("Acrchivo Seleccionado: " + f.getAbsolutePath());
             //j.loadTextFile(f.getAbsolutePath());

@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,7 +14,7 @@ import java.util.Comparator;
  *
  * @author diegoa.torres
  */
-public class Scores {
+public class Scores implements Serializable{
     
     	ArrayList<Usuario> us;
 	
