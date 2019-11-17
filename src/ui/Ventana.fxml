@@ -14,7 +14,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#seleccionarArchivo" text="Cargar juego" />
+                  <MenuItem mnemonicParsing="false" onAction="#CargarJuego" text="Cargar juego" />
                   <MenuItem mnemonicParsing="false" text="Guardar juego" />
                   <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem mnemonicParsing="false" text="Cerrar" />
@@ -22,7 +22,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Ver">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#mejoresPuntajes" text="Mejores puntajes" />
+              <MenuItem mnemonicParsing="false" text="Mejores puntajes" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Acerca del juego">
                      <graphic>
@@ -33,7 +33,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Button layoutX="234.0" layoutY="59.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="9.0" prefWidth="133.0" text="INICIO RAPIDO" />
+      <Button layoutX="234.0" layoutY="59.0" mnemonicParsing="false" prefHeight="9.0" prefWidth="133.0" text="INICIO RAPIDO" />
       <Button layoutX="249.0" layoutY="98.0" mnemonicParsing="false" text="Cargar Datos " />
    </children>
 </AnchorPane>

@@ -39,7 +39,7 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             VentanaController controller = loader.getController();
-            controller.setStage(stage);
+            //controller.setStage(stage);
             stage.show();
             
         } catch (Exception e) {
