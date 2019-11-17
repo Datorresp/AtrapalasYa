@@ -6,9 +6,14 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javafx.stage.Stage;
 
@@ -29,6 +34,7 @@ public class juego {
 
     public Figura[] getFig() {
         return fig;
+        
     }
     
     
@@ -70,8 +76,24 @@ public class juego {
             
             throw new PathException("Falta el archivo");
         }       
-    }    
+    } 
     
-    
+    public void mejoresPuntajes(String fichero) throws IOException, ClassNotFoundException{
+        
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichero));        
+        Object aux = ois.readObject();
+        
+        while (aux!=null){
+            
+        if (aux instanceof Usuario)
+            
+            System.out.println(aux);
+        
+        aux = ois.readObject();
+        }
+        
+        ois.close();
+    }
+
     
 }

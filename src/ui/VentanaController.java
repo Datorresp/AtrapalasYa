@@ -52,12 +52,17 @@ public class VentanaController implements Initializable {
     private void handleButtonAction(ActionEvent event) {
         
         j = new juego(0);
-        //j.getFig()[0].mover();
-        //j.getFig()[1].mover();
-        //j.getFig()[2].mover();
-        //j.getFig()[3].mover();
-        Figura f1 = new Figura(stage, 10, 0, 0, 50, 0, null, true);
-        f1.mover();
+//        //j.getFig()[0].mover();
+//        //j.getFig()[1].mover();
+//        //j.getFig()[2].mover();
+//        //j.getFig()[3].mover();
+//        Figura f1 = new Figura(stage, 100, 0, 0, 50, 50, null, true);
+//        Figura f2 = new Figura(stage, 109, 10, 010, 50, 0, null, true);
+//        Figura f3 = new Figura(stage, 70, 50, 50, 50, 0, null, true);
+//        f1.start();
+//        f3.start();
+//        f2.start();
+        
     }
     
     //PRUEBA DE FILECHOOSER
@@ -74,6 +79,23 @@ public class VentanaController implements Initializable {
             System.out.println("Acrchivo Seleccionado: " + f.getAbsolutePath());
 //            lastfile.setText("Acrchivo Seleccionado: " + f.getAbsolutePath());
             j.loadTextFile(f.getAbsolutePath());
+        }
+        
+    }
+    
+    @FXML
+    
+    private void mejoresPuntajes() throws IOException, ClassNotFoundException{
+ 
+        j = new juego(0);
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Word Files", firstFile));
+        File f = fc.showOpenDialog(null);
+        
+        if (f != null) {
+            lastfile = new Label("Acrchivo Seleccionado");
+            System.out.println("Acrchivo Seleccionado: " + f.getAbsolutePath());
+            j.mejoresPuntajes(f.getAbsolutePath());
         }
         
     }

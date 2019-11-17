@@ -36,6 +36,11 @@ public class Usuario implements Serializable {
     public void setNobre(String nobre) {
         this.nobre = nobre;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "puntaje=" + puntaje + ", nobre=" + nobre + '}';
+    }
     
-    
+        
 }
