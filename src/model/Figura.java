@@ -13,6 +13,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 
@@ -58,6 +59,87 @@ public class Figura  {
 //        s.setScene(theScene); 
 //        
 //    }
+
+    public Figura(double diametro, double posX, double posY, int tiempo, int rebotes, String direccion, boolean parada) {
+        this.diametro = diametro;
+        this.posX = posX;
+        this.posY = posY;
+        this.tiempo = tiempo;
+        this.rebotes = rebotes;
+        this.direccion = direccion;
+        this.parada = parada;
+
+    }
+
+    public double getDiametro() {
+        return diametro;
+    }
+
+    public void setDiametro(double diametro) {
+        this.diametro = diametro;
+    }
+
+    public double getPosX() {
+        return posX;
+    }
+
+    public void setPosX(double posX) {
+        this.posX = posX;
+    }
+
+    public double getPosY() {
+        return posY;
+    }
+
+    public void setPosY(double posY) {
+        this.posY = posY;
+    }
+
+    public int getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(int tiempo) {
+        this.tiempo = tiempo;
+    }
+
+    public int getRebotes() {
+        return rebotes;
+    }
+
+    public void setRebotes(int rebotes) {
+        this.rebotes = rebotes;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public boolean isParada() {
+        return parada;
+    }
+
+    public void setParada(boolean parada) {
+        this.parada = parada;
+    }
+
+    public Ellipse getEl() {
+        return el;
+    }
+
+    public void setEl(Ellipse el) {
+        this.el = el;
+        el.setLayoutX(posX);
+        el.setLayoutY(posY);
+        el.setStroke(Color.BLUE);
+        el.setFill(Color.YELLOW);
+    }
+    
+    
 
         
 }
