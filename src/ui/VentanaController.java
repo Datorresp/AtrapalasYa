@@ -170,97 +170,79 @@ public class VentanaController implements Initializable {
                     
             }
     }
-    
-    public void setRebotes() {
-            if(cargado != false) {
-                    Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                    lbRebotes.setText(String.valueOf(rebotes));
-                            }
-                    });
-            }
-    }    
+      
     
 
     
-    public void ColisionBordes() {
-
-            double distancia = 0;
-            double cx1 = 0;
-            double cy1 = 0;
-            double r1 = 0;
-            double cx2 = 0;
-            double cy2 = 0;
-            double r2 = 0;
-        for (int i = 0; i < figuras.size(); i++) {
-            for (int j = 0; j < figuras.size(); j++) {
-                if (figuras.get(i) != figuras.get(j)) {
-                    if (figuras.get(i).getEl().getCenterX() > figuras.get(j).getEl().getCenterX()&& figuras.get(i).getEl().getCenterY() > figuras.get(j).getEl().getCenterY()) {
-                        cx1 = figuras.get(i).getEl().getLayoutX();
-                        cy1 = figuras.get(i).getEl().getLayoutY();
-                        r1 = figuras.get(i).getEl().getRadiusX();
-                        cx2 = figuras.get(j).getEl().getLayoutX();
-                        cy2 = figuras.get(j).getEl().getLayoutY();
-                        r2 = figuras.get(j).getEl().getRadiusX();
-                    } else {
-                        cx1 = figuras.get(j).getEl().getLayoutX();
-                        cy1 = figuras.get(j).getEl().getLayoutY();
-                        r1 = figuras.get(j).getEl().getRadiusX();
-                        cx2 = figuras.get(i).getEl().getLayoutX();
-                        cy2 = figuras.get(i).getEl().getLayoutY();
-                        r2 = figuras.get(i).getEl().getRadiusX();
-                    }
-                    distancia = Math.sqrt((cx1 - cx2) * (cx1 - cx2) + (cy1 - cy2) * (cy1 - cy2));
-                    if (distancia < r1 + r2) {
-                        if (figuras.get(i).getDireccion().equals(Figura.ARRIBA)) {
-                                figuras.get(i).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
-                                                - (figuras.get(i).getEl().getRadiusY() + 6));
-                        }
-                        if (figuras.get(i).getDireccion().equals(Figura.ABAJO)) {
-                                figuras.get(i).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
-                                                + (figuras.get(i).getEl().getRadiusY() + 6));
-                        }
-                        if (figuras.get(i).getDireccion().equals(Figura.DERECHA)) {
-                                figuras.get(i).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
-                                                + (figuras.get(i).getEl().getRadiusX() + 6));
-                        }
-                        if (figuras.get(i).getDireccion().equals(Figura.IZQUIERDA)) {
-                                figuras.get(i).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
-                                                - (figuras.get(i).getEl().getRadiusX() + 6));
-                        }
-                        if (figuras.get(j).getDireccion().equals(Figura.ARRIBA)) {
-                                figuras.get(j).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
-                                                - (figuras.get(i).getEl().getRadiusY() + 6));
-                        }
-                        if (figuras.get(j).getDireccion().equals(Figura.ABAJO)) {
-                                figuras.get(j).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
-                                                + (figuras.get(i).getEl().getRadiusY() + 6));
-                        }
-                        if (figuras.get(j).getDireccion().equals(Figura.DERECHA)) {
-                                figuras.get(j).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
-                                                + (figuras.get(i).getEl().getRadiusX() + 6));
-                        }
-                        if (figuras.get(j).getDireccion().equals(Figura.IZQUIERDA)) {
-                                figuras.get(j).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
-                                                - (figuras.get(i).getEl().getRadiusX() + 6));
-                        }
-                        figuras.get(i).setDireccion(figuras.get(i).direccionContraria(figuras.get(i).getDireccion()));
-                        figuras.get(j).setDireccion(figuras.get(j).direccionContraria(figuras.get(j).getDireccion()));
-                    }
-                }
-            }
-        }
-    } 
+//    public void ColisionBordes() {
+//
+//            double distancia = 0;
+//            double cx1 = 0;
+//            double cy1 = 0;
+//            double r1 = 0;
+//            double cx2 = 0;
+//            double cy2 = 0;
+//            double r2 = 0;
+//        for (int i = 0; i < figuras.size(); i++) {
+//            for (int j = 0; j < figuras.size(); j++) {
+//                if (figuras.get(i) != figuras.get(j)) {
+//                    if (figuras.get(i).getEl().getCenterX() > figuras.get(j).getEl().getCenterX()&& figuras.get(i).getEl().getCenterY() > figuras.get(j).getEl().getCenterY()) {
+//                        cx1 = figuras.get(i).getEl().getLayoutX();
+//                        cy1 = figuras.get(i).getEl().getLayoutY();
+//                        r1 = figuras.get(i).getEl().getRadiusX();
+//                        cx2 = figuras.get(j).getEl().getLayoutX();
+//                        cy2 = figuras.get(j).getEl().getLayoutY();
+//                        r2 = figuras.get(j).getEl().getRadiusX();
+//                    } else {
+//                        cx1 = figuras.get(j).getEl().getLayoutX();
+//                        cy1 = figuras.get(j).getEl().getLayoutY();
+//                        r1 = figuras.get(j).getEl().getRadiusX();
+//                        cx2 = figuras.get(i).getEl().getLayoutX();
+//                        cy2 = figuras.get(i).getEl().getLayoutY();
+//                        r2 = figuras.get(i).getEl().getRadiusX();
+//                    }
+//                    distancia = Math.sqrt((cx1 - cx2) * (cx1 - cx2) + (cy1 - cy2) * (cy1 - cy2));
+//                    if (distancia < r1 + r2) {
+//                        if (figuras.get(i).getDireccion().equals(Figura.ARRIBA)) {
+//                                figuras.get(i).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
+//                                                - (figuras.get(i).getEl().getRadiusY() + 6));
+//                        }
+//                        if (figuras.get(i).getDireccion().equals(Figura.ABAJO)) {
+//                                figuras.get(i).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
+//                                                + (figuras.get(i).getEl().getRadiusY() + 6));
+//                        }
+//                        if (figuras.get(i).getDireccion().equals(Figura.DERECHA)) {
+//                                figuras.get(i).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
+//                                                + (figuras.get(i).getEl().getRadiusX() + 6));
+//                        }
+//                        if (figuras.get(i).getDireccion().equals(Figura.IZQUIERDA)) {
+//                                figuras.get(i).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
+//                                                - (figuras.get(i).getEl().getRadiusX() + 6));
+//                        }
+//                        if (figuras.get(j).getDireccion().equals(Figura.ARRIBA)) {
+//                                figuras.get(j).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
+//                                                - (figuras.get(i).getEl().getRadiusY() + 6));
+//                        }
+//                        if (figuras.get(j).getDireccion().equals(Figura.ABAJO)) {
+//                                figuras.get(j).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
+//                                                + (figuras.get(i).getEl().getRadiusY() + 6));
+//                        }
+//                        if (figuras.get(j).getDireccion().equals(Figura.DERECHA)) {
+//                                figuras.get(j).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
+//                                                + (figuras.get(i).getEl().getRadiusX() + 6));
+//                        }
+//                        if (figuras.get(j).getDireccion().equals(Figura.IZQUIERDA)) {
+//                                figuras.get(j).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
+//                                                - (figuras.get(i).getEl().getRadiusX() + 6));
+//                        }
+//                        figuras.get(i).setDireccion(figuras.get(i).direccionContraria(figuras.get(i).getDireccion()));
+//                        figuras.get(j).setDireccion(figuras.get(j).direccionContraria(figuras.get(j).getDireccion()));
+//                    }
+//                }
+//            }
+//        }
+//    } 
     
-    @FXML
-    void BestScores(ActionEvent event) {
-        JOptionPane.showMessageDialog(null, s.messageScore(), "Best Scores", JOptionPane.INFORMATION_MESSAGE);
-    }
-    
-
-
-
     public boolean isParado() {
         return parado;
     }

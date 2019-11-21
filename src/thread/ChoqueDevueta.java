@@ -14,7 +14,7 @@ public class ChoqueDevueta extends Thread{
 	public void run() {
 		while (true) {
 			try {
-				vc.ColisionBordes();
+				//vc.ColisionBordes();
 				sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

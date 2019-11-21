@@ -7,8 +7,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+
 
 /**
  *
@@ -30,21 +29,5 @@ public class Scores implements Serializable{
 		us.add(u);
 	}
 	
-	public String messageScore() {
-		String msg = "";
-		if (us.size() > 2) {
-			Collections.sort(us, new Comparator<Usuario>() {
 
-                            @Override
-                            public int compare(Usuario o1, Usuario o2) {
-                                return new Integer(o1.getPuntaje()).compareTo(new Integer(o2.getPuntaje()));
-                            }
-
-			});
-		}
-		for (int i = 0; i < us.size(); i++) {
-			msg += "\n" + (i + 1) + ") " + us.get(i).getNobre()+ "  -  " + us.get(i).getNobre();
-		}
-		return msg;
-	}
 }
