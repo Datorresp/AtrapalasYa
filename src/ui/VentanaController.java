@@ -14,12 +14,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import javafx.stage.Stage;
@@ -30,7 +33,7 @@ import model.Scores;
 import model.Usuario;
 import thread.ChoqueDevueta;
 import thread.CircleMove;
-import thread.ShowFiguresThread;
+
 
 
 /**
@@ -41,9 +44,10 @@ public class VentanaController implements Initializable {
 
     private int nivel, rebotes;
     private boolean parado, cargado;
+    private Stage st;
     Figura figura;
     Usuario u;
-    Scores s;
+    Scores s = new Scores();
     ArrayList<Figura>figuras;
 //  private Stage stage;
     List <String> firstFile;
@@ -54,16 +58,13 @@ public class VentanaController implements Initializable {
    //_____________________________//
     
     @FXML
-    private Label lbRebotes;
+    private Label lbRebotes = new Label();
     
     @FXML
-    private Button inicio;
+    private Button inicio = new Button();
     
     @FXML
-    private Label lbMensajes;
-    
-    @FXML
-    private Button files;
+    private Label lbMensajes = new Label();
     
     @FXML
     private AnchorPane paneJuego;
@@ -73,9 +74,8 @@ public class VentanaController implements Initializable {
      
         cargado = false;
         parado = true;
-        rebotes = 0;
-        paneJuego.getChildren().clear();
-        figuras = new ArrayList<>();
+        rebotes = 0;           
+        figuras = new ArrayList<Figura>();
         String filePath = "";
         BufferedReader br = null;
         FileReader fr = null;        
@@ -136,6 +136,7 @@ public class VentanaController implements Initializable {
         }
     }
     
+    
     @FXML
     void GuardarJuego(ActionEvent event) {
             String nombre = JOptionPane.showInputDialog("Ingrese su nombre: ");
@@ -147,41 +148,138 @@ public class VentanaController implements Initializable {
     @FXML
     void StartGame(ActionEvent event) {
             if (cargado) {
+                
+                //figuras.clear();
+                System.out.println("1");
                     for (int i = 0; i < figuras.size(); i++) {
-                            paneJuego.getChildren().add(figuras.get(i).getEl());
+                        System.out.println("2");
+                        System.out.println(figuras.get(i).toString());
+//                        parado = false;                   
+//                        CircleMove movePac = new CircleMove(st, this, figuras.get(i));
+//                        ChoqueDevueta threadColision = new ChoqueDevueta(this);                   
+//                        movePac.setDaemon(true);
+//                        threadColision.setDaemon(true);
+//                        movePac.start();
+//                        threadColision.start();
+//                        
+                        //paneJuego.getChildren().add(figuras.get(i).getEl());
                     }
-                    parado = false;
-                    ShowFiguresThread threadOpen = new ShowFiguresThread(this);
-                    CircleMove movePac = new CircleMove(this);
-                    ChoqueDevueta threadColision = new ChoqueDevueta(this);
-                    threadOpen.setDaemon(true);
-                    movePac.setDaemon(true);
-                    threadColision.setDaemon(true);
-                    threadOpen.start();
-                    movePac.start();
-                    threadColision.start();
+
             } else {
                     lbMensajes.setText("Se debe cargar una partida antes de jugar");
                     
             }
     }
     
-    //PRUEBA DE FILECHOOSER
-    @FXML
-    private void seleccionarArchivo() throws IOException, PathException{
-        
-        
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Word Files", firstFile));
-        File f = fc.showOpenDialog(null);
-        
-        if (f != null) {
-            System.out.println("Acrchivo Seleccionado: " + f.getAbsolutePath());
-//            lastfile.setText("Acrchivo Seleccionado: " + f.getAbsolutePath());
-            //j.loadTextFile(f.getAbsolutePath());
+    public void setRebotes() {
+            if(cargado != false) {
+                    Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                    lbRebotes.setText(String.valueOf(rebotes));
+                            }
+                    });
+            }
+    }    
+    
+
+    
+    public void ColisionBordes() {
+
+            double distancia = 0;
+            double cx1 = 0;
+            double cy1 = 0;
+            double r1 = 0;
+            double cx2 = 0;
+            double cy2 = 0;
+            double r2 = 0;
+        for (int i = 0; i < figuras.size(); i++) {
+            for (int j = 0; j < figuras.size(); j++) {
+                if (figuras.get(i) != figuras.get(j)) {
+                    if (figuras.get(i).getEl().getCenterX() > figuras.get(j).getEl().getCenterX()&& figuras.get(i).getEl().getCenterY() > figuras.get(j).getEl().getCenterY()) {
+                        cx1 = figuras.get(i).getEl().getLayoutX();
+                        cy1 = figuras.get(i).getEl().getLayoutY();
+                        r1 = figuras.get(i).getEl().getRadiusX();
+                        cx2 = figuras.get(j).getEl().getLayoutX();
+                        cy2 = figuras.get(j).getEl().getLayoutY();
+                        r2 = figuras.get(j).getEl().getRadiusX();
+                    } else {
+                        cx1 = figuras.get(j).getEl().getLayoutX();
+                        cy1 = figuras.get(j).getEl().getLayoutY();
+                        r1 = figuras.get(j).getEl().getRadiusX();
+                        cx2 = figuras.get(i).getEl().getLayoutX();
+                        cy2 = figuras.get(i).getEl().getLayoutY();
+                        r2 = figuras.get(i).getEl().getRadiusX();
+                    }
+                    distancia = Math.sqrt((cx1 - cx2) * (cx1 - cx2) + (cy1 - cy2) * (cy1 - cy2));
+                    if (distancia < r1 + r2) {
+                        if (figuras.get(i).getDireccion().equals(Figura.ARRIBA)) {
+                                figuras.get(i).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
+                                                - (figuras.get(i).getEl().getRadiusY() + 6));
+                        }
+                        if (figuras.get(i).getDireccion().equals(Figura.ABAJO)) {
+                                figuras.get(i).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
+                                                + (figuras.get(i).getEl().getRadiusY() + 6));
+                        }
+                        if (figuras.get(i).getDireccion().equals(Figura.DERECHA)) {
+                                figuras.get(i).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
+                                                + (figuras.get(i).getEl().getRadiusX() + 6));
+                        }
+                        if (figuras.get(i).getDireccion().equals(Figura.IZQUIERDA)) {
+                                figuras.get(i).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
+                                                - (figuras.get(i).getEl().getRadiusX() + 6));
+                        }
+                        if (figuras.get(j).getDireccion().equals(Figura.ARRIBA)) {
+                                figuras.get(j).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
+                                                - (figuras.get(i).getEl().getRadiusY() + 6));
+                        }
+                        if (figuras.get(j).getDireccion().equals(Figura.ABAJO)) {
+                                figuras.get(j).getEl().setLayoutY(figuras.get(i).getEl().getLayoutY()
+                                                + (figuras.get(i).getEl().getRadiusY() + 6));
+                        }
+                        if (figuras.get(j).getDireccion().equals(Figura.DERECHA)) {
+                                figuras.get(j).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
+                                                + (figuras.get(i).getEl().getRadiusX() + 6));
+                        }
+                        if (figuras.get(j).getDireccion().equals(Figura.IZQUIERDA)) {
+                                figuras.get(j).getEl().setLayoutX(figuras.get(i).getEl().getLayoutX()
+                                                - (figuras.get(i).getEl().getRadiusX() + 6));
+                        }
+                        figuras.get(i).setDireccion(figuras.get(i).direccionContraria(figuras.get(i).getDireccion()));
+                        figuras.get(j).setDireccion(figuras.get(j).direccionContraria(figuras.get(j).getDireccion()));
+                    }
+                }
+            }
         }
-        
+    } 
+    
+    @FXML
+    void BestScores(ActionEvent event) {
+        JOptionPane.showMessageDialog(null, s.messageScore(), "Best Scores", JOptionPane.INFORMATION_MESSAGE);
     }
+    
+
+
+
+    public boolean isParado() {
+        return parado;
+    }
+
+    public ArrayList<Figura> getFiguras() {
+        return figuras;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+    
+
+    
+    
+    @FXML
+    void Exit(ActionEvent event) {
+            System.exit(0);
+    }    
 //    
 //    @FXML
 //    
@@ -212,11 +310,17 @@ public class VentanaController implements Initializable {
         firstFile.add("*.txt");
         firstFile.add("*.RTF");
     }  
+    
+    
 
 //    public void setStage(Stage stage) {
 //        this.stage = stage;
 //    }
 //    
+
+    public void setS(Stage s) {
+        this.st = s;
+    }
      
     
 }

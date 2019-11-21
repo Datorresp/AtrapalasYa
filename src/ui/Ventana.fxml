@@ -9,9 +9,9 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.VentanaController">
+<AnchorPane fx:id="paneJuego" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.VentanaController">
    <children>
-      <MenuBar prefHeight="29.0" prefWidth="600.0">
+      <MenuBar prefHeight="29.0" prefWidth="659.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -37,5 +37,6 @@
       <Button fx:id="inicio" layoutX="234.0" layoutY="59.0" mnemonicParsing="false" onAction="#StartGame" prefHeight="9.0" prefWidth="133.0" text="INICIO RAPIDO" />
       <Button layoutX="249.0" layoutY="98.0" mnemonicParsing="false" text="Cargar Datos " />
       <Label fx:id="lbMensajes" layoutX="249.0" layoutY="183.0" text="Label" />
+      <Label fx:id="lbRebotes" layoutX="284.0" layoutY="270.0" text="Label" />
    </children>
 </AnchorPane>

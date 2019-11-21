@@ -21,17 +21,22 @@ import javafx.stage.Stage;
  *
  * @author diegoa.torres
  */
-public class Figura  {
+public class Figura extends Thread {
     
-//    Stage s;
-//    GraphicsContext gc;
-//    Image fondo;
-//    ImageView fondoFinal;
+    public static final String ARRIBA = "ARRIBA";
+    public static final String ABAJO = "ABAJO";
+    public static final String IZQUIERDA = "IZQUIERDA";
+    public static final String DERECHA = "DERECHA";
+    Stage s;
+    GraphicsContext gc;
+    Image fondo;
+    ImageView fondoFinal;
     private double diametro, posX, posY;
     private int tiempo, rebotes;
     private String direccion;
     private boolean parada;
     private Ellipse el;
+    
     
     
 
@@ -135,11 +140,61 @@ public class Figura  {
         this.el = el;
         el.setLayoutX(posX);
         el.setLayoutY(posY);
-        el.setStroke(Color.BLUE);
+        el.setStroke(Color.WHITE);
         el.setFill(Color.YELLOW);
+    }
+    
+    public String direccionContraria(String direction) {
+            String dir = "";
+            if(direction.equals(ARRIBA)){
+                    dir = ABAJO;
+            }if(direction.equals(ABAJO)){
+                    dir = ARRIBA;
+            }if(direction.equals(DERECHA)){
+                    dir = IZQUIERDA;
+            }if(direction.equals(IZQUIERDA)){
+                    dir = DERECHA;
+            }
+            return dir;
+    } 
+    
+        @Override
+    public void run() {
+        
+        double dir = posX;
+        for (double x = posX; true; x+=dir) {
+            
+            try {
+                
+                
+                gc.drawImage(fondoFinal.getImage(), 0, 0, s.getWidth(), s.getHeight());
+                
+                gc.fillOval(x, posY, diametro, diametro);
+                Thread.sleep(tiempo);
+                if(x>s.getHeight()+90)dir=-10;
+                if(x<10)dir=+10;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        
     }
     
     
 
+    
+    public void mover(){
+        
+        this.start();
+
+    }  
+
+    @Override
+    public String toString() {
+        return "Figura{" + "diametro=" + diametro + ", posX=" + posX + ", posY=" + posY + ", tiempo=" + tiempo + ", rebotes=" + rebotes + ", direccion=" + direccion + ", parada=" + parada + ", el=" + el + '}';
+    }
+    
+    
         
 }

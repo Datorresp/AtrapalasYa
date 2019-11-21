@@ -12,14 +12,14 @@ public class ChoqueDevueta extends Thread{
 	
 	@Override
 	public void run() {
-//		while (true) {
-//			try {
-//				v.Colision();
-//				sleep(50);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		while (true) {
+			try {
+				vc.ColisionBordes();
+				sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }
